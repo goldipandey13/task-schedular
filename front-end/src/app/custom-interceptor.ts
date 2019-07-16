@@ -2,7 +2,6 @@ import { HttpInterceptor, HttpHandler, HttpEvent, HttpRequest, HttpHeaders } fro
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import 'rxjs/add/observable/fromPromise';
-import { tap, delay } from "rxjs/operators";
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -19,8 +18,7 @@ export class TokenInterceptor implements HttpInterceptor {
                 headers: new HttpHeaders({ 'Authorization': `JWT ${token}` })
             });
 
-            return next.handle(req).pipe(
-                delay(5000));
+            return next.handle(req);
             // return Observable.fromPromise(this.handleAccess(req, next));
         }
     }

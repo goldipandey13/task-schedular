@@ -39,11 +39,7 @@ app.use(function (req, res, next) {
 
 
 app.use('/user', user);
-app.use('/task', (req, res, next) => {
-    console.log('**********************************');
-    console.log(req.headers);
-    console.log('**********************************');
-}, passport.authenticate('jwt', { session: false }), task);
+app.use('/task', passport.authenticate('jwt', { session: false }), task);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
