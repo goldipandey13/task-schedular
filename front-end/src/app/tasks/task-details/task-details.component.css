@@ -1,0 +1,13 @@
+.delete-task:hover{
+    border-radius: 50px !important;
+    background-color:#cdd1d5 !important;
+}
+
+.back-button{
+    border-radius: 50px !important;
+}
+
+.task-title-icon{
+    border: none !important;
+    background: white !important;
+}

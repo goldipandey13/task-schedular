@@ -10,6 +10,11 @@ const user = require('./routes/user.js');
 const task = require('./routes/task.js');
 var app = express();
 
+//Passport
+app.use(passport.initialize());
+app.use(passport.session());
+require('./config/passport')(passport);
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ 'extended': 'false' }));
 app.use(express.static(path.join(__dirname, 'dist')));
@@ -32,14 +37,13 @@ app.use(function (req, res, next) {
     next();
 });
 
-//Passport
-app.use(passport.initialize());
-require('./config/passport')(passport);
 
 app.use('/user', user);
-app.use('/task', passport.authenticate('jwt', {
-    session: false
-}), task);
+app.use('/task', (req, res, next) => {
+    console.log('**********************************');
+    console.log(req.headers);
+    console.log('**********************************');
+}, passport.authenticate('jwt', { session: false }), task);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

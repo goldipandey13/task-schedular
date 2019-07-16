@@ -1,0 +1,44 @@
+.task-button{
+    border-radius: 40px;
+    padding: 15px;
+    text-align: left;
+}
+
+.menu-button{
+    border-radius: 50px;
+    padding: 15px;
+}
+
+.task-title{
+    border: none !important;
+    border-bottom: 1px solid lightgray !important;
+    margin-left: 15px !important;
+}
+
+.task-title-icon{
+    border: none !important;
+    background: white !important;
+}
+
+.task-title-hover-icon{
+    border: none !important;
+    border-radius: 50px;   
+}
+
+.task-container{
+    min-height: 60px !important;
+}
+
+div span.only-show-on-hover {
+    display: none;
+}
+div:hover span.only-show-on-hover  {
+    display: block;
+}
+
+div span.only-hide-on-hover {
+    display: block;
+}
+div:hover span.only-hide-on-hover  {
+    display: none;
+}

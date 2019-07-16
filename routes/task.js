@@ -1,11 +1,13 @@
 const express = require('express');
 const router = express.Router();
+const passport = require('passport');
 
 const Task = require('../models/task.js');
 const User = require('../models/user.js');
 
 // -------------------- get all chats -------------------------//
 router.get('/', function (req, res) {
+    console.log(req.headers);
     Task.find({ postedBy: req.user._id }, { is_active: 0, updated_at: 0, __v: 0 }, function (err, list) {
         if (err) {
             res.json(err);

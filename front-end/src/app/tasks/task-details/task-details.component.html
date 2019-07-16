@@ -1,0 +1,52 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-6 mx-auto my-5 py-2 border-bottom">
+      <button class="btn btn-lg bg-light back-button" (click)="backToList()">
+        <i class="material-icons mr-2">arrow_back</i></button>
+
+      <button class="btn bg-white btn-lg float-right delete-task" (click)="deleteTask(taskDetails._id)">
+        <i class="material-icons"> delete_outline</i></button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6 mx-auto">
+      <div class="form-group">
+        <input type="text" [(ngModel)]="taskDetails.title" name="title" class="form-control" placeholder="Add Title">
+      </div>
+
+      <div class="form-group">
+        <textarea [(ngModel)]="taskDetails.description" name="description" class="form-control" cols="20"
+          placeholder="Add details"></textarea>
+      </div>
+
+      <div class="form-group">
+        <input [(ngModel)]="taskDetails.taskTime" name="taskTime" type="text" class="form-control"
+          placeholder="Add Title">
+      </div>
+
+      <div class="row form-group">
+        <div class="col-1">
+          <i class="material-icons mr-2 p-1">arrow_forward</i>
+        </div>
+        <div class="col">
+          <ng-container *ngIf="taskDetails.subtasks?.length>0">
+            <div *ngFor="let subtask of taskDetails.subtask">
+              <div class="row form-group">
+                <div class="col-1">
+                  <span class="input-group-text h-100 w-100 bg-white task-title-icon" id="inputGroup-sizing-lg"><i
+                      class="material-icons">panorama_fish_eye</i></span>
+                </div>
+                <div class="col">
+                  <input type="subtask.title" class="form-control" placeholder="Add Title">
+                </div>
+              </div>
+            </div>
+          </ng-container>
+          <button class="btn bg-white btn-lg delete-task" (click)="addSubTask()"> Add subtasks
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,50 @@
+<div class="container-fluid">
+  <ng-container *ngIf="currentPage==='taskList'">
+    <div class="row">
+      <div class="col-6 mx-auto my-3">
+        <h2 class="px-2">My Tasks</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6 mx-auto">
+        <div class="row">
+          <button (click)="addNewTask()" class="btn btn-lg btn-light col-10 mr-2 task-button">
+            <i class="material-icons">add</i>
+            Add a task</button>
+          <button class="btn btn-lg btn-light col-1 menu-button" title="menu">
+            <i class="material-icons">more_vert</i>
+          </button>
+        </div>
+
+        <div *ngFor="let task of tasks; let i = index" class="row my-4 mx-2">
+          <form (ngSubmit)="saveNewTask(task)" class="w-100">
+            <div class="row task-container" (mouseover)="bgcolor='bg-light'; hoverOnIcon=true"
+              (mouseout)="bgcolor='bg-white';hoverOnIcon=false">
+              <div class="col-1 px-0">
+                <span *ngIf="!task.completed" class="input-group-text only-hide-on-hover h-100 w-100 task-title-icon"
+                  id="inputGroup-sizing-lg"><i class="material-icons">panorama_fish_eye</i></span>
+                <span (click)="completeTask(task)" *ngIf="task.completed || hoverOnIcon "
+                  class="input-group-text only-show-on-hover h-100 w-100 task-title-hover-icon"
+                  id="inputGroup-sizing-lg"><i class="material-icons text-info lg">done</i></span>
+              </div>
+              <div class="col-8 px-0 d-flex align-items-center">
+                <input type="text" [(ngModel)]="task.title" name="taskTitle" autocomplete="off"
+                  class="h-100 form-control task-title" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
+              </div>
+              <div class="col-1 px-0">
+                <span (click)="openDetails(task)"
+                  class="input-group-text h-100 w-100 justify-content-center task-title-hover-icon" [ngClass]="bgcolor"
+                  id="inputGroup-sizing-lg"><i class="material-icons text-info lg">edit</i></span>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="currentPage==='taskDetails'">
+    <app-task-details *ngIf="taskDetails" [taskDetails]="taskDetails" (changeCurrentPage)="changeCurrentPage($event)">
+    </app-task-details>
+  </ng-container>
+</div>

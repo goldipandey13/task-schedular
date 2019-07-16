@@ -1,0 +1,26 @@
+<header class="navbar navbar-light bg-white navbar-expand-lg py-1 px-md-4 border-bottom shadow-sm">
+  <!-- <img src="../../assets/tweet.png" width="50" height="50" alt="tweet-icon"> -->
+  <h3 (click)="navigateToChatList()" class="text-info cursor-pointer">Tasks</h3>
+  <span class="navbar-text m-0 ml-auto">
+
+    <ng-container *ngIf="isLoggedIn else notLoggedIn">
+      <span class="mr-2">Hi, Welcome {{loggedInUser}}</span>
+
+    </ng-container>
+    <ng-template #notLoggedIn>
+      <ng-container *ngIf="isNotLoggedIn() else loggedIn">
+        <button [routerLink]="['/']" class="btn btn-outline-info my-2 my-sm-0 cursor-pointer mr-3" type="button">Sign
+          In</button>
+        <button [routerLink]="['/sign-up']" class="btn btn-outline-info my-2 my-sm-0 cursor-pointer mx-3"
+          type="button">Sign
+          Up</button>
+      </ng-container>
+      <ng-template #loggedIn>
+        <button (click)="logout()" class="btn btn-outline-info my-2 my-sm-0 cursor-pointer mx-3"
+          type="button">Logout</button>
+      </ng-template>
+    </ng-template>
+  </span>
+</header>
+
+<app-toast-message *ngIf="showToast" [message]="toastMessage"></app-toast-message>
