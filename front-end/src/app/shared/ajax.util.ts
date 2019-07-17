@@ -6,10 +6,8 @@ import { HttpHeaders } from '@angular/common/http';
 export class AjaxUtils {
 
     public getHeaderOptions(): any {
+        const token = localStorage.getItem('token');
         let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-        headers = headers.set('Accept', 'application/json');
-        headers = headers.set('Accept', 'application/json');
-        headers = headers.set('Content-Type', 'application/json');
         return headers;
     }
 

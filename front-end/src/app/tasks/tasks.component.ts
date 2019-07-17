@@ -13,6 +13,7 @@ export class TasksComponent implements OnInit {
   currentPage: any;
   taskDetails: Task;
   hoverOnIcon: boolean;
+  showCompletedTask: boolean;
 
   constructor(private taskService: TasksService) {
     this.tasks = [];
@@ -20,8 +21,21 @@ export class TasksComponent implements OnInit {
     this.taskDetails = new Task();
   }
 
+  completedTask() {
+    let count = 0;
+    this.tasks.forEach((task) => {
+      if (task.completed) {
+        count++
+      }
+    });
+
+    if (count > 0) return true;
+    return false;
+  }
+
   changeCurrentPage(event) {
     this.currentPage = event;
+    this.getALLTasks();
   }
 
   openDetails(task) {
@@ -36,6 +50,14 @@ export class TasksComponent implements OnInit {
   completeTask(task: Task) {
     task.completed = true;
     this.updateTask(task._id, task);
+  }
+
+  deleteTask(taskId) {
+    this.taskService.deleteTask(taskId).then((res) => {
+      this.getALLTasks();
+    }).catch((error) => {
+      console.log(error);
+    });
   }
 
   updateTask(id, task) {
@@ -60,7 +82,6 @@ export class TasksComponent implements OnInit {
 
   getALLTasks() {
     this.taskService.getAllTasks().then((res) => {
-      console.log(res);
       this.tasks = res;
     }).catch((error) => {
       console.log(error);

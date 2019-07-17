@@ -6,6 +6,8 @@ import { FormsModule } from '@angular/forms';
 
 import { MatIconModule, MatDialogModule, MatSnackBarModule, MatCardModule } from '@angular/material';
 
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+
 import { AppRoutingModule } from './app-routing.module';
 import { SignUpComponent } from './account/sign-up/sign-up.component';
 import { SignInComponent } from './account/sign-in/sign-in.component';
@@ -21,6 +23,7 @@ import { TokenInterceptor } from './custom-interceptor';
 import { ToastMessagesComponent } from './shared/toast-message/toast-message.component';
 import { TaskDetailsComponent } from './tasks/task-details/task-details.component';
 import { TasksService } from './tasks/task.service';
+import { HttpModule } from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -38,10 +41,13 @@ import { TasksService } from './tasks/task.service';
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
+    HttpModule,
     MatIconModule,
     MatDialogModule,
     MatSnackBarModule,
     MatCardModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
   ],
   providers: [AjaxUtils, ErrorService, UrlConstants, AccountService, CommonService, TasksService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }

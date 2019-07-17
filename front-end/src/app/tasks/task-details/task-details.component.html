@@ -20,8 +20,13 @@
       </div>
 
       <div class="form-group">
-        <input [(ngModel)]="taskDetails.taskTime" name="taskTime" type="text" class="form-control"
-          placeholder="Add Title">
+        <!-- <input [(ngModel)]="taskDetails.taskTime" name="taskTime" type="text" class="form-control"
+          placeholder="Add date"> -->
+        <input class="mb-0 px-3 py-1 form-group border rounded-right ft-90 text-muted w-75" readonly
+          [(ngModel)]="triggerDateAndTime" name="triggerDate" [owlDateTime]="dt" [owlDateTimeTrigger]="dt"
+          placeholder="dd-mm-yyyy  at  --:--">
+        <owl-date-time #dt [hour12Timer]="true" (afterPickerClosed)="updateTriggerDateAndTime()">
+        </owl-date-time>
       </div>
 
       <div class="row form-group">
@@ -30,14 +35,15 @@
         </div>
         <div class="col">
           <ng-container *ngIf="taskDetails.subtasks?.length>0">
-            <div *ngFor="let subtask of taskDetails.subtask">
+            <div *ngFor="let subtask of taskDetails.subtasks">
               <div class="row form-group">
                 <div class="col-1">
                   <span class="input-group-text h-100 w-100 bg-white task-title-icon" id="inputGroup-sizing-lg"><i
                       class="material-icons">panorama_fish_eye</i></span>
                 </div>
                 <div class="col">
-                  <input type="subtask.title" class="form-control" placeholder="Add Title">
+                  <input [(ngModel)]="subtask.title" name="subtaskTitle" type="subtask.title" class="form-control"
+                    placeholder="Add Title">
                 </div>
               </div>
             </div>

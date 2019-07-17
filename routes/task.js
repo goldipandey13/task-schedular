@@ -25,7 +25,9 @@ router.post('/', function (req, res) {
     }
 
     Task.create(task, function (err, task) {
-        if (err) return next(err);
+        if (err) {
+            res.json(err.message);
+        }
         else {
             res.json(task);
         }
@@ -36,13 +38,13 @@ router.post('/:id', function (req, res) {
     const task = {
         title: req.body.title,
         description: req.body.description,
-        subtask: req.body.subtask,
+        subtasks: req.body.subtasks,
         completed: req.body.completed,
         taskTime: req.body.taskTime,
         postedBy: req.user._id
     }
     Task.findByIdAndUpdate(req.params.id, task, { new: true }, function (err, updatedTask) {
-        if (err) return next(err);
+        if (err) res.json(err.message);
         else {
             res.json(updatedTask);
         }
@@ -51,10 +53,9 @@ router.post('/:id', function (req, res) {
 
 router.get('/delete/:id', function (req, res) {
     Task.deleteOne(req.param.id, function (err) {
-        if (err) return next(err);
+        if (err) res.json(err.message);
         res.json({ success: true, message: 'deleted task' });
     });
 });
-
 
 module.exports = router;

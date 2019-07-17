@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 import { AjaxUtils } from '../shared/ajax.util';
 import { UrlConstants } from '../shared/url-constant';
@@ -49,7 +49,7 @@ export class TasksService {
 
     deleteTask(id) {
         return this.http
-            .get(`${this.urlConstant.TASKS()}/${id}`, this.ajaxUtils.getHeaderOptions())
+            .get(`${this.urlConstant.TASKS()}/delete/${id}`, this.ajaxUtils.getHeaderOptions())
             .toPromise()
             .then((res: any) => res as any)
             .catch(error => {

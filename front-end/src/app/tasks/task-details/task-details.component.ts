@@ -1,14 +1,18 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Task, subTask } from 'src/app/models/task';
+import { Task } from 'src/app/models/task';
 import { TasksService } from '../task.service';
+
+import { NgbDatepickerConfig, NgbDate, NgbModal, NgbModalOptions, NgbModalRef, NgbPopover } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-task-details',
   templateUrl: './task-details.component.html',
-  styleUrls: ['./task-details.component.css']
+  styleUrls: ['./task-details.component.css'],
+  providers: [NgbDatepickerConfig]
 })
 export class TaskDetailsComponent implements OnInit {
   @Input() taskDetails: Task;
+  triggerDateAndTime: any;
 
   @Output() changeCurrentPage: EventEmitter<string> = new EventEmitter<string>();
 
@@ -17,7 +21,11 @@ export class TaskDetailsComponent implements OnInit {
   }
 
   addSubTask() {
-    this.taskDetails.subtasks.push(new subTask());
+    const subtask = {
+      title: '',
+      completed: false
+    }
+    this.taskDetails.subtasks.push(subtask);
   }
 
   backToList() {
@@ -29,9 +37,13 @@ export class TaskDetailsComponent implements OnInit {
     });
   }
 
+  updateTriggerDateAndTime() {
+    this.taskDetails.taskTime = new Date(this.triggerDateAndTime).getTime();
+  }
+
   deleteTask(taskId) {
     this.taskService.deleteTask(taskId).then((res) => {
-      console.log(res);
+      this.changeCurrentPage.emit('taskList');
     }).catch((error) => {
       console.log(error);
     });
@@ -41,6 +53,8 @@ export class TaskDetailsComponent implements OnInit {
     if (!this.taskDetails) {
       return;
     }
+
+    this.triggerDateAndTime = new Date(this.taskDetails.taskTime);
   }
 
 }

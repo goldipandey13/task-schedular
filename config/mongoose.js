@@ -21,7 +21,6 @@ mongoose.connect(config.MONGODB_URI, options).then(
     () => {
         /** ready to use. The `mongoose.connect()` promise resolves to undefined. */
         console.log('Connected to database:', config.MONGODB_URI);
-        console.log('Kindly check the log file for logs!');
 
     })
     .catch((err) => console.log('Error connecting to database: ', err));

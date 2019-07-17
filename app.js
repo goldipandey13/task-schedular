@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const { mongoose } = require('./config/mongoose');
 const config = require('./config/config');
+var cors = require('cors');
 
 
 const user = require('./routes/user.js');
@@ -19,24 +20,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ 'extended': 'false' }));
 app.use(express.static(path.join(__dirname, 'dist')));
 
-// // CORS support
-if (process.env.NODE_ENV === 'production') {
-    app.use(
-        cors({
-            credentials: true,
-            origin: 'http://localhost:4200'
-        })
-    );
+const corsOptions = {
+    origin: ["http://localhost:4200"],
+    credentials: true,
+    methods: "POST, PUT, OPTIONS, DELETE, GET",
+    allowedHeaders: "Content-Type, Authorization, Content-Length, X-Requested-With"
 }
 
-app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", '*');
-    res.header("Access-Control-Allow-Credentials", true);
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
-    next();
-});
-
+app.use(cors(corsOptions))
+app.options('*', cors(corsOptions));
 
 app.use('/user', user);
 app.use('/task', passport.authenticate('jwt', { session: false }), task);

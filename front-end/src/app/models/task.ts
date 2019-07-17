@@ -6,10 +6,10 @@ export class Task {
     postedBy: string;
     taskTime: number;
     userEmail: string;
-    subtasks: subTask[];
+    subtasks: any[];
 }
 
-export class subTask {
+export class SubTask {
     title: string;
     completed: boolean;
 }

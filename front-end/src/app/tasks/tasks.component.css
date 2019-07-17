@@ -29,16 +29,23 @@
     min-height: 60px !important;
 }
 
-div span.only-show-on-hover {
+div.icon-div span.only-show-on-hover {
     display: none;
 }
-div:hover span.only-show-on-hover  {
+div.icon-div:hover span.only-show-on-hover  {
     display: block;
 }
 
-div span.only-hide-on-hover {
+div.icon-div span.only-hide-on-hover {
     display: block;
 }
-div:hover span.only-hide-on-hover  {
+div.icon-div:hover span.only-hide-on-hover  {
     display: none;
+}
+
+div.title-row span.edit-icon-highlight {
+    background-color: white;
+}
+div.title-row:hover span.edit-icon-highlight  {
+    background-color: lightgray
 }

@@ -11,33 +11,66 @@
           <button (click)="addNewTask()" class="btn btn-lg btn-light col-10 mr-2 task-button">
             <i class="material-icons">add</i>
             Add a task</button>
-          <button class="btn btn-lg btn-light col-1 menu-button" title="menu">
+          <!-- <button class="btn btn-lg btn-light col-1 menu-button" title="menu">
             <i class="material-icons">more_vert</i>
-          </button>
+          </button> -->
         </div>
 
         <div *ngFor="let task of tasks; let i = index" class="row my-4 mx-2">
-          <form (ngSubmit)="saveNewTask(task)" class="w-100">
-            <div class="row task-container" (mouseover)="bgcolor='bg-light'; hoverOnIcon=true"
-              (mouseout)="bgcolor='bg-white';hoverOnIcon=false">
-              <div class="col-1 px-0">
-                <span *ngIf="!task.completed" class="input-group-text only-hide-on-hover h-100 w-100 task-title-icon"
-                  id="inputGroup-sizing-lg"><i class="material-icons">panorama_fish_eye</i></span>
-                <span (click)="completeTask(task)" *ngIf="task.completed || hoverOnIcon "
-                  class="input-group-text only-show-on-hover h-100 w-100 task-title-hover-icon"
-                  id="inputGroup-sizing-lg"><i class="material-icons text-info lg">done</i></span>
+          <ng-container *ngIf="!task.completed">
+            <form (ngSubmit)="saveNewTask(task)" class="w-100">
+              <div class="row task-container">
+                <div class="col-1 px-0 icon-div">
+                  <span [ngClass]="{'d-none': task.completed}"
+                    class="input-group-text only-hide-on-hover h-100 w-100 task-title-icon" id="inputGroup-sizing-lg"><i
+                      class="material-icons">panorama_fish_eye</i></span>
+                  <span (click)="completeTask(task)" [ngClass]="{'d-block': task.completed}"
+                    class="input-group-text only-show-on-hover h-100 w-100 task-title-hover-icon cursor-pointer"
+                    id="inputGroup-sizing-lg"><i class="material-icons text-info lg">done</i></span>
+                </div>
+                <div class="col-8 px-0 d-flex align-items-center title-row">
+                  <input type="text" [(ngModel)]="task.title" name="taskTitle" autocomplete="off"
+                    class="h-100 form-control task-title" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="col-1 px-0">
+                  <span (click)="openDetails(task)"
+                    class="input-group-text h-100 w-100 justify-content-center bg-white task-title-hover-icon edit-icon-highlight"
+                    [ngClass]="bgcolor" id="inputGroup-sizing-lg"><i class="material-icons text-info lg">edit</i></span>
+                </div>
               </div>
-              <div class="col-8 px-0 d-flex align-items-center">
-                <input type="text" [(ngModel)]="task.title" name="taskTitle" autocomplete="off"
-                  class="h-100 form-control task-title" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
+            </form>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="completedTask()" class="row">
+      <div class="col-6 mx-auto">
+        <button (click)="showCompletedTask=!showCompletedTask" class="btn btn-lg btn-light col-10 mr-2">
+          Completed</button>
+        <div *ngFor="let task of tasks; let i = index" class="row my-4 mx-2">
+          <ng-container *ngIf="task.completed && showCompletedTask">
+            <form class="w-100">
+              <div class="row task-container">
+                <div class="col-1 px-0 icon-div">
+                  <span [ngClass]="{'d-none': task.completed}"
+                    class="input-group-text only-hide-on-hover h-100 w-100 task-title-icon" id="inputGroup-sizing-lg"><i
+                      class="material-icons">panorama_fish_eye</i></span>
+                  <span (click)="completeTask(task)" [ngClass]="{'d-block': task.completed}"
+                    class="input-group-text only-show-on-hover h-100 w-100 task-title-hover-icon cursor-pointer"
+                    id="inputGroup-sizing-lg"><i class="material-icons text-info lg">done</i></span>
+                </div>
+                <div class="col-8 px-0 d-flex align-items-center title-row">
+                  <input type="text" [(ngModel)]="task.title" name="taskTitle" autocomplete="off"
+                    class="h-100 form-control task-title" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="col-1 px-0">
+                  <span (click)="deleteTask(task._id)"
+                    class="input-group-text h-100 w-100 justify-content-center bg-white task-title-hover-icon edit-icon-highlight"
+                    id="inputGroup-sizing-lg"><i class="material-icons text-info lg">delete_outline</i></span>
+                </div>
               </div>
-              <div class="col-1 px-0">
-                <span (click)="openDetails(task)"
-                  class="input-group-text h-100 w-100 justify-content-center task-title-hover-icon" [ngClass]="bgcolor"
-                  id="inputGroup-sizing-lg"><i class="material-icons text-info lg">edit</i></span>
-              </div>
-            </div>
-          </form>
+            </form>
+          </ng-container>
         </div>
       </div>
     </div>
