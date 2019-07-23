@@ -73,7 +73,10 @@ export class TasksComponent implements OnInit {
       this.updateTask(task._id, task);
     } else {
       this.taskService.createTask(task).then((res) => {
-        console.log(res);
+        this.tasks.find(v => {if(v.title == res.title){
+          v._id = res._id;
+        }
+      });
       }).catch((error) => {
         console.log(error);
       });

@@ -7,6 +7,7 @@ export class Task {
     taskTime: number;
     userEmail: string;
     subtasks: any[];
+    updated_at: Date;
 }
 
 export class SubTask {
